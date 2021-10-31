@@ -66,7 +66,73 @@ const firstPromt = function() {
                             console.table(results);
                 });
             });
-        };
+        } else if (answers.userChoice === 'add role') {
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'newTitle',
+                    message: 'What is the title of the new role'
+                },
+                {
+                    type: 'number',
+                    name: 'newSalary',
+                    message: 'What is the Salary'
+                },
+                {
+                    type: 'number',
+                    name: 'departmentId',
+                    message: 'What is the department ID'
+                }
+            ])
+            .then(answers => {
+                db.query(
+                    `INSERT INTO roles (title, salary, department_id) 
+                    VALUES 
+                    ('${answers.newTitle}', ${answers.newSalary}, ${answers.departmentId})`);
+                db.query(
+                    'SELECT * FROM roles',
+                    function(err, results, fields) {
+                        // using table to display 
+                        console.table(results);
+                })
+            })
+        } else if (answers.userChoice === 'add employee') {
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'newFirstName',
+                    message: 'What is the first name of the new employee'
+                },
+                {
+                    type: 'input',
+                    name: 'newLastName',
+                    message: 'What is the last name of the new employee'
+                },
+                {
+                    type: 'number',
+                    name: 'roleId',
+                    message: 'What is the employees role id'
+                },
+                {
+                    type: 'number',
+                    name: 'mangagerId',
+                    message: 'What is the id of the manager of this employee'
+                }
+
+            ])
+            .then(answers => {
+                db.query(
+                    `INSERT INTO employees (first_name, last_name, role_id, manager_id) 
+                    VALUES 
+                    ('${answers.newFirstName}', '${answers.newLastName}', ${answers.roleId}, ${answers.mangagerId})`);
+                db.query(
+                    'SELECT * FROM employees',
+                    function(err, results, fields) {
+                        // using table to display 
+                        console.table(results);
+                })
+            })
+        }
     })
 };
 
