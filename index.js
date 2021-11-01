@@ -16,7 +16,7 @@ const firstPromt = function() {
                 'Add department',
                 'Add role',
                 'Add employee',
-                'Update employee'],
+                'Update employee role'],
             filter(val) {
                 return val.toLowerCase();
             },
@@ -43,7 +43,9 @@ const firstPromt = function() {
         } else if (answers.userChoice === 'view all employees'){
             // making a raw SQL query to our database
             db.query(
-                'SELECT * FROM employees',
+                `SELECT roles.id, roles.title, roles.salary, employees.first_name, employees.last_name
+                FROM employees
+                INNER JOIN roles ON employees.role_id=roles.id`,
                 function(err, results, fields) {
                     // using table to display 
                     console.table(results);
@@ -118,7 +120,6 @@ const firstPromt = function() {
                     name: 'mangagerId',
                     message: 'What is the id of the manager of this employee'
                 }
-
             ])
             .then(answers => {
                 db.query(
@@ -131,6 +132,32 @@ const firstPromt = function() {
                         // using table to display 
                         console.table(results);
                 })
+            })
+        } else if (answers.userChoice === "update employee role") {
+            inquirer.prompt([
+                {
+                    type: 'number',
+                    name: 'employeeID',
+                    message: 'What is the id of the employee?'
+                },
+                {
+                    type: 'input',
+                    name: 'newRole',
+                    message: 'What is the new role of this employee?'
+                }
+            ]).then(answers => {
+                db.query(
+                    `UPDATE employees
+                    SET role = ${answers.newRole}
+                    WHERE id = ${answers.employeeID}`);
+                db.query(
+                    `SELECT roles.id, roles.title, roles.salary, employees.first_name, employees.last_name
+                    FROM employees
+                    INNER JOIN roles ON employees.role_id=roles.id`,
+                        function(err, results, fields) {
+                            // using table to display 
+                            console.table(results);
+                });
             })
         }
     })
