@@ -148,7 +148,7 @@ const firstPromt = function() {
             ]).then(answers => {
                 db.query(
                     `UPDATE employees
-                    SET role = ${answers.newRole}
+                    SET role_id = ${answers.newRole}
                     WHERE id = ${answers.employeeID}`);
                 db.query(
                     `SELECT roles.id, roles.title, roles.salary, employees.first_name, employees.last_name

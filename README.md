@@ -1,22 +1,18 @@
 # employee-tracker
 
-npm init 
-npm install dotenv
-npm install --save mysql2
-npm install inquirer
-npm install console.table --save
+## Description
+This is a simple program which will allow the user to manpulate SQL databases from the command line.
 
-GIVEN a command-line application that accepts user input
-WHEN I start the application
-THEN I am presented with the following options: view all departments, 
+## Installations 
+This program requires npm, npm dotenv, npm mysql, npm inquiere, and npm console.table
 
-view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
+## Usage 
+MySQL account information and will need to be placed into db/connection.js. After the database is created and seeded simply run npm start. Note this progrom does not loop so npm start will need to be called every time. 
 
-WHEN I choose to view all departments
+## Screenshot and video links 
 
-THEN I am presented with a formatted table showing department names and department ids
+## Future upgrades 
+Given more times or funding as movtivation this program could be improved with better looping and refined SQL queries with joins to display the information better.
 
-view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-WHEN I choose to view all departments
-THEN I am presented with a formatted table showing department names and department ids
-WHEN I choose to view all roles
+## Contributions 
+This program was coded by Rayce Wheat 
